@@ -1,0 +1,315 @@
+#include <stdio.h>
+#include <stdbool.h>
+#include <string.h>
+#include <ctype.h>
+#include <locale.h>
+
+// Definição da struct para representar um quarto
+
+struct Quarto {
+    bool disponivel;
+    int andar;
+    int numero;
+    double preco;
+    char nome_cliente[100];
+    char cpf_cliente[15];
+};
+
+void limpar_Tela() {
+    system("cls||clear"); // Limpa a tela no Windows e linux
+}
+
+void main() {
+    setlocale(LC_ALL, "Portuguese");
+
+    int selecione;
+
+    // Inicialização dos quartos em uma array de structs
+    struct Quarto quartos[5][10];
+
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 10; j++) {
+            quartos[i][j].disponivel = true;
+            quartos[i][j].andar = i + 1;
+            quartos[i][j].numero = j + 1;
+
+            switch (i + 1) {
+                case 1:
+                    quartos[i][j].preco = 500.00;
+                    break;
+                case 2:
+                    quartos[i][j].preco = 700.00;
+                    break;
+                case 3:
+                    quartos[i][j].preco = 900.00;
+                    break;
+                case 4:
+                    quartos[i][j].preco = 1100.00;
+                    break;
+                case 5:
+                    quartos[i][j].preco = 1300.00;
+                    break;
+            }
+        }
+    }
+    int menu;
+
+    do {
+        limpar_Tela();
+        printf ("Bem vindo! Qual hotel gostaria de se hospedar?\n\n");
+        printf ("1- Hotel Tokyo\n");
+        printf ("2- Hotel Holandes\n");
+        printf ("3- Hotel Miles Morales\n");
+        printf ("4- Sair\n\n");
+        scanf ("%d", &menu);
+
+        switch (menu) {
+            case 1:
+                printf("Você selecionou o Hotel Tokyo\n");
+                break;
+            case 2:
+                printf("Você selecionou o Hotel Holandes\n");
+                break;
+            case 3:
+                printf("Você selecionou o Hotel Miles Morales\n");
+                break;
+            case 4:
+                printf("\nSaindo do programa!\n\n");
+                return 0; // Encerra o programa imediatamente
+            default:
+                printf("Opção inválida. Tente novamente.\n\n");
+                printf("Pressione Enter para continuar...");
+                getchar();
+                break;
+        }
+
+        // Limpar o menu de entrada
+        while (getchar() != '\n');
+
+        // Se o usuário não selecionou um hotel válido, continue pedindo a seleção do hotel
+    } while (menu < 1 || menu > 3);
+
+    do {
+        limpar_Tela();
+        printf("Menu de Opções:\n\n");
+        printf("1 - Quartos Disponíveis\n");
+        printf("2 - Reservar um Quarto\n");
+        printf("3 - Cancelar a Reserva\n");
+        printf("4 - Consultar a Reserva\n");
+        printf("5 - Gerar Cobrança\n");
+        printf("6 - Gerar Relatórios\n");
+        printf("7 - Sair\n\n");
+        printf("Escolha uma opção para prosseguir: ");
+        scanf("%d", &selecione);
+
+        switch (selecione) {
+            case 1:
+                limpar_Tela();
+                printf("Você selecionou a Opção 1 - Quartos Disponíveis\n\n");
+
+                int andar;
+                printf("Selecione o andar (1°, 2°, 3°, 4°, 5°): ");
+                scanf("%d", &andar);
+
+                if (andar >= 1 && andar <= 5) {
+                    printf("\nQuartos disponíveis no %d° andar:\n\n", andar);
+
+                    for (int quarto = 0; quarto < 10; quarto++) {
+                        if (quartos[andar - 1][quarto].disponivel) {
+                            printf("Quarto %d\n", quartos[andar - 1][quarto].numero);
+                            printf("Disponível\n");
+                            printf("Preço: R$ %.2lf\n", quartos[andar - 1][quarto].preco);
+                        } else {
+                            printf("Quarto %d\n", quartos[andar - 1][quarto].numero);
+                            printf("Indisponível\n");
+                        }
+                        printf("\n");
+                    }
+                } else {
+                    printf("Andar inválido!\n");
+                }
+
+                printf("Pressione Enter para voltar ao menu...");
+                getchar(); // Limpa o buffer do teclado
+                break;
+
+            case 2:
+                limpar_Tela();
+                printf("Você selecionou a Opção 2 - Reservar um Quarto\n\n");
+
+                char nome_cliente[100];
+                char cpf_cliente[15];
+
+                printf("Digite o nome do cliente: ");
+                scanf(" %99[^\n]", nome_cliente);
+
+                printf("Digite o CPF do cliente: ");
+                scanf(" %14s", cpf_cliente);
+
+                int andar_reserva, quarto_reserva;
+                printf("\nSelecione o andar (1°, 2°, 3°, 4°, 5°): ");
+                scanf("%d", &andar_reserva);
+
+                if (andar_reserva >= 1 && andar_reserva <= 5) {
+                    printf("\nQuartos disponíveis no %d° andar:\n\n", andar_reserva);
+                    bool quartos_disponiveis_reserva = false;
+
+                    for (int quarto = 0; quarto < 10; quarto++) {
+                        if (quartos[andar_reserva - 1][quarto].disponivel) {
+                            quartos_disponiveis_reserva = true;
+                            printf("Quarto %d\n", quartos[andar_reserva - 1][quarto].numero);
+                            printf("Preço: R$ %.2lf\n", quartos[andar_reserva - 1][quarto].preco);
+                            printf("Disponível\n\n");
+                        }
+                    }
+
+                    if (quartos_disponiveis_reserva) {
+                        printf("Escolha o número do quarto desejado: ");
+                        scanf("%d", &quarto_reserva);
+
+                        if (quarto_reserva >= 1 && quarto_reserva <= 10 && quartos[andar_reserva - 1][quarto_reserva - 1].disponivel) {
+                            quartos[andar_reserva - 1][quarto_reserva - 1].disponivel = false;
+                            strcpy(quartos[andar_reserva - 1][quarto_reserva - 1].nome_cliente, nome_cliente);
+                            strcpy(quartos[andar_reserva - 1][quarto_reserva - 1].cpf_cliente, cpf_cliente);
+
+                            printf("\nReserva efetuada com sucesso para %s\nCPF: %s no %d° Andar\nQuarto %d!\n\n", nome_cliente, cpf_cliente, andar_reserva, quarto_reserva);
+                        } else {
+                            printf("Quarto selecionado não está disponível ou é inválido.\n");
+                        }
+                    } else {
+                        printf("Nenhum quarto disponível neste andar para reserva.\n");
+                    }
+                } else {
+                    printf("Andar inválido!\n");
+                }
+
+                printf("\nPressione Enter para voltar ao menu...");
+                getchar(); // Limpa o buffer do teclado
+                break;
+
+            case 3:
+                limpar_Tela();
+                printf("Você selecionou a Opção 3 - Cancelar a Reserva\n\n");
+
+                char cpf_cliente_cancelar[15];
+
+                printf("Digite o CPF do cliente para cancelar a reserva: ");
+                scanf(" %14s", cpf_cliente_cancelar);
+
+                bool reserva_encontrada = false;
+
+                for (int i = 0; i < 5; i++) {
+                    for (int j = 0; j < 10; j++) {
+                        if (!quartos[i][j].disponivel && strcmp(quartos[i][j].cpf_cliente, cpf_cliente_cancelar) == 0) {
+                            quartos[i][j].disponivel = true;
+                            strcpy(quartos[i][j].nome_cliente, "");
+                            strcpy(quartos[i][j].cpf_cliente, "");
+                            reserva_encontrada = true;
+                        }
+                    }
+                }
+
+                if (reserva_encontrada) {
+                    printf("Reserva cancelada com sucesso.\n\n");
+                } else {
+                    printf("CPF inválido. Não foi possível encontrar a reserva.\n");
+                }
+
+                printf("\nPressione Enter para voltar ao menu...");
+                getchar(); // Limpa o buffer do teclado
+                break;
+
+            case 4:
+                limpar_Tela();
+                printf("Você selecionou a Opção 4 - Consultar a Reserva\n\n");
+
+                char cpf_consulta[15];
+                printf("Digite o CPF do cliente para consultar a reserva: ");
+                scanf(" %14s", cpf_consulta);
+
+                bool reserva_encontrada_consulta = false;
+
+                for (int i = 0; i < 5; i++) {
+                    for (int j = 0; j < 10; j++) {
+                        if (!quartos[i][j].disponivel && strcmp(quartos[i][j].cpf_cliente, cpf_consulta) == 0) {
+                            printf("Reserva encontrada:\n");
+                            printf("Andar: %d\n", quartos[i][j].andar);
+                            printf("Número do Quarto: %d\n", quartos[i][j].numero);
+                            printf("Nome do Cliente: %s\n", quartos[i][j].nome_cliente);
+                            printf("CPF do Cliente: %s\n", quartos[i][j].cpf_cliente);
+                            printf("Preço: R$ %.2lf\n", quartos[i][j].preco);
+                            printf("\n");
+                            reserva_encontrada_consulta = true;
+                        }
+                    }
+                }
+
+                if (!reserva_encontrada_consulta) {
+                    printf("CPF inválido. Não foi possível encontrar a reserva.\n");
+                }
+
+                printf("\nPressione Enter para voltar ao menu...");
+                getchar(); // Limpa o buffer do teclado
+                break;
+
+            case 5:
+                limpar_Tela();
+                printf("Você selecionou a Opção 5 - Gerar Cobrança\n\n");
+
+                // Implemente o código para gerar cobrança aqui
+
+                printf("Pressione Enter para voltar ao menu...");
+                getchar(); // Limpa o buffer do teclado
+                break;
+
+            case 6:
+                limpar_Tela();
+                printf("Você selecionou a Opção 6 - Gerar Relatórios\n\n");
+
+                int andar_relatorio;
+                printf("Digite o andar para gerar o relatório (1°, 2°, 3°, 4°, 5°): ");
+                scanf("%d", &andar_relatorio);
+
+                if (andar_relatorio >= 1 && andar_relatorio <= 5) {
+                    // Loop para percorrer os quartos do andar especificado
+                    printf("Relatório de Quartos no %d° andar:\n\n", andar_relatorio);
+                    for (int quarto = 0; quarto < 10; quarto++) {
+                        printf("Andar: %d\n", quartos[andar_relatorio - 1][quarto].andar);
+                        printf("Número do Quarto: %d\n", quartos[andar_relatorio - 1][quarto].numero);
+                        printf("Disponibilidade: %s\n", quartos[andar_relatorio - 1][quarto].disponivel ? "Disponível" : "Indisponível");
+                        printf("Preço: R$ %.2lf\n", quartos[andar_relatorio - 1][quarto].preco);
+                        if (!quartos[andar_relatorio - 1][quarto].disponivel) {
+                            printf("Nome do Cliente: %s\n", quartos[andar_relatorio - 1][quarto].nome_cliente);
+                            printf("CPF do Cliente: %s\n", quartos[andar_relatorio - 1][quarto].cpf_cliente);
+                        }
+                        printf("\n");
+                    }
+                } else {
+                    printf("Andar inválido!\n");
+                }
+
+                printf("\nPressione Enter para voltar ao menu...");
+                getchar(); // Limpa o buffer do teclado
+                break;
+
+            case 7:
+                printf("\nSaindo do programa!\n\n");
+                break;
+
+            default:
+                limpar_Tela();
+                printf("\nOpção inválida. Tente novamente.\n\n");
+                printf("\nPressione Enter para continuar...");
+                getchar();
+        }
+
+        // Limpar o menu de entrada
+        while (getchar() != '\n');
+
+    } while (selecione != 7);
+
+
+return 0;
+
+
+}

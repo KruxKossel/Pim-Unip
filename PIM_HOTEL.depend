@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1696429642 source:c:\users\mkt\onedrive\Área de trabalho\pim_hotel\main.c
+	<stdio.h>
+	<stdbool.h>
+	<string.h>
+	<ctype.h>
+	<locale.h>
+
