@@ -872,6 +872,7 @@ int menu3(int hotel) {
 
   do {
     limpar_Tela();
+    printf("|-/--/--/-----------------------\\--\\--\\-|\n\n");
     printf("Menu de Opções:\n\n");
     printf("1 - Quartos Disponíveis\n");
     printf("2 - Consultar a Reserva\n");
@@ -883,6 +884,7 @@ int menu3(int hotel) {
     case 1:
 
       limpar_Tela();
+      printf("|-/--/--/-------------------------------------------------\n\n");
       printf("Você selecionou a Opção 1 - Quartos Disponíveis\n\n");
 
       printf("_________________________________________________________________"
@@ -923,7 +925,8 @@ int menu3(int hotel) {
     case 2:
 
       limpar_Tela();
-      printf("Você selecionou a Opção 4 - Consultar a Reserva\n\n");
+      printf("|-/--/--/-------------------------------------------------\n\n");
+      printf("Você selecionou a Opção 2 - Consultar a Reserva\n\n");
 
       char cpf_consulta[15], senha_consulta[7];
       printf("Digite o CPF do cliente para consultar a reserva: ");
