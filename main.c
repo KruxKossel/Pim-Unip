@@ -22,7 +22,7 @@ struct Quarto {
   char data_checkin[11], data_checkout[11];
   double faturamento;
   char email[50], contato[20], senha[7];
-} quartos[5][10][3]; // Inicialização dos quartos em uma array de structs;
+} quartos[5][10][4]; // Inicialização dos quartos em uma array de structs;
 
 void limpar_Tela() {
   system("cls || clear");
@@ -624,7 +624,7 @@ int menu2(int hotel, char *nomeP) {
 
       for (int i = 0; i < 5; i++) {
         for (int j = 0; j < 10; j++) {
-          for (int k = 0; k < 3; k++) {
+          for (int k = 0; k < 4; k++) {
             if (!quartos[i][j][k].disponivel &&
                 strcmp(quartos[i][j][k].cpf_cliente, cpf_consulta) == 0) {
               printf("\nReserva encontrada: ");
@@ -962,7 +962,7 @@ int menu3(int hotel) {
 
       for (int i = 0; i < 5; i++) {
         for (int j = 0; j < 10; j++) {
-          for (int k = 0; k < 3; k++) {
+          for (int k = 0; k < 4; k++) {
             if (!quartos[i][j][k].disponivel &&
                 strcmp(quartos[i][j][k].cpf_cliente, cpf_consulta) == 0 &&
                 strcmp(quartos[i][j][k].senha, senha_consulta) == 0) {
@@ -1071,7 +1071,7 @@ void valores() {
 
   for (int i = 0; i < 5; i++) {
     for (int j = 0; j < 10; j++) {
-      for (int k = 0; k < 3; k++) {
+      for (int k = 0; k < 4; k++) {
         quartos[i][j][k].disponivel = true;
         quartos[i][j][k].andar = i + 1;
         quartos[i][j][k].numero = j + 1;
