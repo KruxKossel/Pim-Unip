@@ -560,29 +560,52 @@ int menu2(int hotel, char *nomeP) {
 
       for (int i = 0; i < 5; i++) {
         for (int j = 0; j < 10; j++) {
-          for (int k = 0; k < 3; k++) {
-            if (!quartos[i][j][k].disponivel &&
-                strcmp(quartos[i][j][k].cpf_cliente, cpf_cliente_cancelar) ==
-                    0) {
-              quartos[i][j][k].disponivel = true;
-              strcpy(quartos[i][j][k].nome_cliente, "");
-              strcpy(quartos[i][j][k].cpf_cliente, "");
-              strcpy(quartos[i][j][k].email, "");
-              strcpy(quartos[i][j][k].contato, "");
-              strcpy(quartos[i][j][k].nomeF, "");
-              strcpy(quartos[i][j][k].senha, "");
+          if (!quartos[i][j][hotel].disponivel &&
+              strcmp(quartos[i][j][hotel].cpf_cliente, cpf_cliente_cancelar) == 0) {
+
+            // Exibir informações da reserva
+            printf("\nReserva realiza por: %s\n", quartos[i][j][hotel].nomeF);
+            printf("\n");
+            printf("Nome do Cliente: %s\n", quartos[i][j][hotel].nome_cliente);
+            printf("CPF do Cliente: %s\n", quartos[i][j][hotel].cpf_cliente);
+            printf("Data de Check-in: %s\n", quartos[i][j][hotel].data_checkin);
+            printf("Data de Check-out: %s\n", quartos[i][j][hotel].data_checkout);
+            printf("\n");
+
+            // confirmação para prosseguir
+            int cancelamento_confirmado;
+            printf("\nProsseguir com o cancelamento? (1 para sim, 0 para não): ");
+            scanf("%d", &cancelamento_confirmado);
+
+            if (cancelamento_confirmado == 1) {
+
+              // Reset do quarto
+              quartos[i][j][hotel].disponivel = true;
+              strcpy(quartos[i][j][hotel].nome_cliente, "");
+              strcpy(quartos[i][j][hotel].cpf_cliente, "");
+              strcpy(quartos[i][j][hotel].email, "");
+              strcpy(quartos[i][j][hotel].contato, "");
+              strcpy(quartos[i][j][hotel].nomeF, "");
+              strcpy(quartos[i][j][hotel].senha, "");
               reserva_encontrada = true;
+
+            } else {
+              goto DESCE; // goto para sair do looping
             }
+
+            goto DESCE1; // goto para sair do looping
           }
         }
       }
 
+    DESCE1:
       if (reserva_encontrada) {
         printf("\nReserva cancelada com sucesso.\n\n");
       } else {
         printf("\n\nCPF inválido. Não foi possível encontrar a reserva.\n");
       }
 
+    DESCE:
       printf("\nPressione Enter para voltar ao menu...");
       getchar();
       break;
