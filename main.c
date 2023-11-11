@@ -87,33 +87,35 @@ INICIO:            // Label para retornar a tela inicial
 
       do {
 
+        INICIO1: // label do cliente, retorna a opções de hoteis
+
         limpar_Tela();
         x = 0;
         tentativa = 0;
 
         menu1();
         switch (menu) {
-        case 1:
+        case 1: // sp
           menu3(menu);
           if (x == 1)
             limpar_Tela();
-          goto INICIO;
+          goto INICIO1;
           break;
-        case 2:
+        case 2: // rj
           menu3(menu);
           if (x == 1)
             limpar_Tela();
-          goto INICIO;
+          goto INICIO1;
           break;
-        case 3:
+        case 3: // salvador
           menu3(menu);
           if (x == 1)
             limpar_Tela();
-          goto INICIO;
+          goto INICIO1;
           break;
         case 4:
           limpar_Tela();
-          goto INICIO;
+          goto INICIO; // tela inicial
         default:
           printf("\n\nOpção inválida. Tente novamente.\n\n");
           printf("\nPressione Enter para continuar...");
