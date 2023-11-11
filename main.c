@@ -795,7 +795,7 @@ int menu2(int hotel, char *nomeP) {
         if (andar_relatorio >= 1 && andar_relatorio <= 5) {
           // Loop para percorrer os quartos do andar especificado e mostra na
           // tela apenas
-          printf("Relatório de Quartos no %d° andar:\n\n", andar_relatorio);
+          printf("\n\nRelatório de Quartos no %d° andar:\n\n", andar_relatorio);
           for (int quarto = 0; quarto < 10; quarto++) {
             printf("Andar: %d\n",
                    quartos[andar_relatorio - 1][quarto][hotel].andar);
@@ -837,7 +837,7 @@ int menu2(int hotel, char *nomeP) {
         if (andar_relatorio >= 1 && andar_relatorio <= 5) {
           // Loop para percorrer os quartos do andar especificado e mostra na
           // tela apenas
-          printf("Relatório de Quartos no %d° andar:\n\n", andar_relatorio);
+          printf("\n\nRelatório de Quartos no %d° andar:\n\n", andar_relatorio);
           for (int quarto = 0; quarto < 10; quarto++) {
             printf("Andar: %d\n",
                    quartos[andar_relatorio - 1][quarto][hotel].andar);
