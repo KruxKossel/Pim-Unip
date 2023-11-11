@@ -417,7 +417,7 @@ int menu2(int hotel, char *nomeP) {
 
         for (int quarto = 0; quarto < 10; quarto++) {
           if (quartos[andar - 1][quarto][hotel].disponivel) {
-            printf("Quarto %d\n", quartos[andar + 1][quarto][hotel].numero);
+            printf("Quarto %d\n", quartos[andar - 1][quarto][hotel].numero);
             printf("Disponível\n");
             printf("Preço: R$ %.2lf\n",
                    quartos[andar - 1][quarto][hotel].preco);
