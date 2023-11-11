@@ -672,7 +672,7 @@ int menu2(int hotel, char *nomeP) {
         bool quarto_ocupado = false;
         int quarto_pago = -1;
 
-        printf("\nQuartos ocupados no %d° andar:\n\n", andar_cobranca);
+        printf("\n\nQuartos ocupados no %d° andar:\n\n", andar_cobranca);
         for (int quarto = 0; quarto < 10; quarto++) {
           if (!quartos[andar_cobranca - 1][quarto][hotel].disponivel) {
             printf("Quarto %d\n",
